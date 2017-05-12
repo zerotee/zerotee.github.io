@@ -1,3 +1,3 @@
 module.exports = {
-  title: 'ZeroTee | home'
+  title: 'ZeroTee | Minimal Geek Tees | Coming Soon'
 }
