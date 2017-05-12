@@ -1,0 +1,32 @@
+{
+  "name": "zerotee-website",
+  "version": "1.0.0",
+  "description": "The ZeroTee website",
+  "author": "tirotekton <solus1@protonmail.com>",
+  "license": "CC-BY-SA-4.0",
+  "private": true,
+  "main": "index.html",
+  "homepage": "https://github.com/zerotee/zerotee.github.io#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zerotee/zerotee.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zerotee/zerotee.github.io/issues"
+  },
+  "scripts": {
+    "test": "true",
+    "build": "make -C build",
+    "start": "superstatic"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.0.1",
+    "bulma": "^0.4.1",
+    "imagemin-cli": "^3.0.0",
+    "imagemin-pngquant": "^5.0.0",
+    "node-sass": "^4.5.2",
+    "postcss-cli": "^4.0.0",
+    "pug-cli": "^1.0.0-alpha6",
+    "superstatic": "^4.1.0"
+  }
+}
