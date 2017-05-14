@@ -5,12 +5,25 @@ cssDeps += ../node_modules/bulma/bulma.sass
 cssMain  = $(cssSrc)/main.sass
 cssBuild = $(cssMain:$(cssSrc)/%.sass=$(cssDir)/%.css)
 
-all:: css
+all: css
 
-css: $(cssBuild)
+clean: css-clean
+
+css: $(cssDir) $(cssBuild)
+
+css-clean:
+	rm -rf $(cssDir)
+
+$(cssDir):
+	mkdir -p $@
 
 $(cssDir)/%.css: $(cssDeps)
-	node-sass --output-style expanded --source-map true --include-path ../node_modules/bulma $(cssMain) $@
-	postcss --use autoprefixer --map --output $@ $@
+	node-sass \
+	  --output-style expanded \
+	  --source-map true \
+	  --include-path ../node_modules/bulma \
+	  --include-path ../node_modules/bulmaswatch \
+	  $(cssMain) $@
+	postcss --map --use autoprefixer --output $@ $@
 
-.PHONY: css
+.PHONY: css css-clean

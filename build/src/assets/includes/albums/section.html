@@ -1,0 +1,15 @@
+{% from "../products.html" import productGrid %}
+{% from "./title.html" import albumTitle %}
+
+{% macro albumSection(id, items, titleContent=false) %}
+  <div class="section album" id="album-{{ id }}">
+    <div class="container">
+      {% if titleContent %}
+        {{ albumTitle(titleContent) }}
+      {% else %}
+        {% include "./titles/" + id + ".html" ignore missing %}
+      {% endif %}
+      {{ productGrid(items) }}
+    </div>
+  </div>
+{% endmacro %}

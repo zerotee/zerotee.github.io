@@ -1,0 +1,9 @@
+{% macro navigation(header='Minimal Geek Tees') %}
+  <nav class="level">
+    <p class="level-item header">{{ header|safe }}</p>
+    <p class="level-item"><a href="/about">About</a></p>
+    <p class="level-item">
+    <a href="mailto:hello@zerotee.space">Email</a>
+    </p>
+  </nav>
+{% endmacro %}

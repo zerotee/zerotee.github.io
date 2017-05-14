@@ -5,14 +5,14 @@ imgGlob  = *.{$(subst $(space),$(comma),$(imgTypes))}
 imgFiles = $(foreach type, $(imgTypes), $(wildcard $(imgSrc)/*.$(type)))
 imgBuild = $(imgFiles:$(imgSrc)/%=$(imgDir)/%)
 
-all:: img
+all: img
+
+clean: img-clean
 
 img: $(imgDir) $(imgBuild)
 
-img-import:
-ifdef from
-	cp -vu $(from)/$(imgGlob) $(imgSrc) || true
-endif
+img-clean:
+	rm -rf $(imgDir)
 
 $(imgDir):
 	mkdir -p $@
@@ -23,4 +23,4 @@ $(imgDir)/%.svg: $(imgSrc)/%.svg
 $(imgDir)/%.png: $(imgSrc)/%.png
 	imagemin --plugin=pngquant $< > $@
 
-.PHONY: img img-import
+.PHONY: img img-clean

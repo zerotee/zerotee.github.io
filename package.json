@@ -21,12 +21,24 @@
   },
   "devDependencies": {
     "autoprefixer": "^7.0.1",
+    "autotrack": "^2.3.2",
     "bulma": "^0.4.1",
+    "bulmaswatch": "^0.4.1",
+    "cheerio": "^0.22.0",
     "imagemin-cli": "^3.0.0",
     "imagemin-pngquant": "^5.0.0",
+    "lodash": "^4.17.4",
+    "markdown-it": "^8.3.1",
+    "node-fetch": "^1.6.3",
     "node-sass": "^4.5.2",
+    "nunjucks": "^3.0.0",
+    "nunjucks-markdown": "^2.0.1",
+    "p-each-series": "^1.0.0",
+    "p-throttle": "^1.1.0",
     "postcss-cli": "^4.0.0",
+    "pouchdb": "^6.2.0",
     "pug-cli": "^1.0.0-alpha6",
+    "slugify": "^1.1.0",
     "superstatic": "^4.1.0"
   }
 }

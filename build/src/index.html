@@ -1,0 +1,65 @@
+{% extends "./assets/layouts/base.html" %}
+{% from "./assets/includes/nav.html" import navigation %}
+{% from "./assets/includes/products.html" import productGrid %}
+{% from "./assets/includes/albums/section.html" import albumSection %}
+{% from "./assets/includes/subscribe.html" import subscribeForm %}
+
+{% block body %}
+  <div class="section" id="top">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-3">
+          <figure class="image block">
+            <img src="/assets/img/logo.svg" />
+          </figure>
+          {{ navigation() }}
+        </div>
+        <div class="column is-4 is-offset-5 content">
+          {{ subscribeForm() }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% for id in albums.sort %}
+    {{ albumSection(id, products.byAlbum[id], albums.titles[id]) }}
+  {% endfor %}
+
+  {% for id, album in products.byAlbum %}
+    {% if not albums.sort.includes(id) %}
+      {{ albumSection(id, products.byAlbum[id], albums.titles[id]) }}
+    {% endif %}
+  {% endfor %}
+
+  {% if products.noAlbum.length %}
+    {{ albumSection('none', products.noAlbum, '<h1>More Tees!</h1>') }}
+  {% endif %}
+
+  <div class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-6 is-offset-3 content is-medium has-text-centered">
+          <h1>More coming soon!</h1>
+          <p>
+            More tees are being found and catalogued. We're just getting
+            started!
+          </p>
+          {{ subscribeForm(size='medium') }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-3">
+          {{ navigation(header='Copyright &copy; 2017 ZeroTee') }}
+        </div>
+        <div class="column is-2 is-offset-7 has-text-right">
+          &#129093; <a href="#top">Back to Top</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% from "../title.html" import albumTitle %}
+
+{% set titleContent %}
+  <figure class="image block">
+    <img src="/assets/img/album-guardians-of-the-galaxy.png" />
+  </figure>
+{% endset %}
+
+{{ albumTitle(titleContent, width=2) }}

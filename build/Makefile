@@ -14,4 +14,4 @@ include *.mk
 print-%:
 	@echo "$($*)"
 
-.PHONY: all
+.PHONY: all clean

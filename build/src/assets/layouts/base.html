@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head lang="en">
+    {% block head %}
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>{{ title }}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/assets/img/favicon.png" sizes="256x256 "/>
+      <link rel="stylesheet" href="/assets/css/main.css" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500" />
+    {% endblock %}
+  </head>
+  <body>
+    {% block body %}{% endblock %}
+    {% block foot %}
+      <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-98886738-4', 'auto');
+      ge('require', 'outboundLinkTracker');
+      ge('require', 'outboundFormTracker');
+      ga('send', 'pageview');
+      </script>
+      <script async src="https://www.google-analytics.com/analytics.js"></script>
+      <script async src="/assets/js/lib/autotrack.js"></script>
+    {% endblock %}
+  </body>
+</html>
