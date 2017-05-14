@@ -1,9 +1,12 @@
-cssDir   = $(assetsDir)/css
-cssSrc   = src/assets/css
-cssDeps  = $(wildcard $(cssSrc)/*.sass)
-cssDeps += ../node_modules/bulma/bulma.sass
-cssMain  = $(cssSrc)/main.sass
-cssBuild = $(cssMain:$(cssSrc)/%.sass=$(cssDir)/%.css)
+cssDir    = $(assetsDir)/css
+cssSrc    = src/assets/css
+cssDeps   = $(wildcard $(cssSrc)/*.sass)
+cssDeps  += ../node_modules/bulma/bulma.sass
+cssMain   = $(cssSrc)/main.sass
+cssLibs   = $(jsNom)/font-awesome/css
+cssLibs  += $(jsNom)/font-awesome/fonts
+cssBuild  = $(cssMain:$(cssSrc)/%.sass=$(cssDir)/%.css)
+cssBuild += $(cssLibs:$(jsNom)/%=$(cssDir)/lib/%)
 
 all: css
 
@@ -25,5 +28,9 @@ $(cssDir)/%.css: $(cssDeps)
 	  --include-path ../node_modules/bulmaswatch \
 	  $(cssMain) $@
 	postcss --map --use autoprefixer --output $@ $@
+
+$(cssDir)/lib/font-awesome/%: $(jsNom)/font-awesome/%
+	@mkdir -p $(@D)
+	cp -r $< $@
 
 .PHONY: css css-clean

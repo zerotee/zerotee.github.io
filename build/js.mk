@@ -1,4 +1,3 @@
-jsNom  = $(publicDir)/node_modules
 jsDir  = $(assetsDir)/js
 jsLibs = $(jsDir)/lib/autotrack.js
 
