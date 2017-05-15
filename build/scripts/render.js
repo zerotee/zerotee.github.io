@@ -7,6 +7,7 @@ const md = require('markdown-it')()
 
 const prog = Path.basename(process.argv[1])
 const env = nunjucks.configure()
+const htmlSrc = process.env.htmlSrc || 'src'
 
 nunjucksMd.register(env, (text) => md.render(text))
 
@@ -21,7 +22,11 @@ function main () {
 
   const path = Path.parse(file)
   const ctxFile = Path.resolve(process.cwd(), Path.join(path.dir, path.name))
-  const context = {}
+  const pathRel = path.dir.replace(new RegExp(`^${htmlSrc}/?`), '')
+  const context = {
+    date: new Date(),
+    currentPage: pathRel + (pathRel.length ? '-' : '') + path.name
+  }
 
   try {
     Object.assign(context, require(ctxFile))

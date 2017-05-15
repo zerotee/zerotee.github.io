@@ -1,24 +1,42 @@
-{% macro navigation(header='Minimal Geek Tees') %}
-  <nav class="level">
-    <p class="level-item header">{{ header|safe }}</p>
-    <p class="level-item"><a href="/about">About</a></p>
+{% macro navigation(header='Minimal Geek Tees', showPolicy=false) %}
+  <nav class="level is-fullwidth">
     <p class="level-item">
-    <a href="mailto:hello@zerotee.space">Email</a>
+      {{ header | safe }}
+    </p>
+    <p class="level-item">
+      <a class="button is-link" href="/about">
+        About
+      </a>
+    </p>
+    <p class="level-item">
+      <a class="button is-link" href="mailto:hello@zerotee.space">
+        Email Us
+      </a>
+    </p>
+    {% if showPolicy %}
+    <p class="level-item">
+      <a class="button is-link" href="/privacy">
+        Privacy
+      </a>
+    </p>
+    {% endif %}
+    <p class="level-item">
+      <a class="button is-primary is-outlined"
+         href="https://www.facebook.com/ZeroTee-1900013050251430/">
+        <span class="icon is-small">
+          <i class="fa fa-thumbs-up"></i>
+        </span>
+        <span>Like</span>
+      </a>
+    </p>
+    <p class="level-item">
+      <a class="button is-primary is-outlined"
+         href="https://twitter.com/zerotee_">
+        <span class="icon is-small">
+          <i class="fa fa-twitter"></i>
+        </span>
+        <span>Follow</span>
+      </a>
     </p>
   </nav>
-
-  <div class="has-text-centered">
-    <a class="button is-info is-small" href="https://www.facebook.com/ZeroTee-1900013050251430/">
-      <span class="icon is-small">
-        <i class="fa fa-thumbs-up"></i>
-      </span>
-      <span>Like</span>
-    </a>
-    <a class="button is-success is-small" href="https://twitter.com/zerotee_">
-      <span class="icon is-small">
-        <i class="fa fa-twitter"></i>
-      </span>
-      <span>Follow</span>
-    </a>
-  </div>
 {% endmacro %}

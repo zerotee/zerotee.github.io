@@ -1,26 +1,20 @@
-{% extends "../assets/layouts/base.html" %}
+{% extends "../assets/layouts/page.html" %}
+
 {% from "../assets/includes/subscribe.html" import subscribeForm %}
 
 {% set title = "ZeroTee | About" %}
 
-{% block body %}
-  <div class="section">
-    <div class="container">
-      <div class="block">
-        &#129092; <a href="/">Main page</a>
+{% block content %}
+  <div class="columns">
+    <div class="column is-half">
+      <div class="content is-medium">
+        {% markdown "src/about/about.md" %}
       </div>
-      <div class="columns">
-        <div class="column is-half">
-          <div class="content is-medium">
-            {% markdown "src/about/about.md" %}
-          </div>
-        </div>
+    </div>
 
-        <div class="column is-3 is-offset-3">
-          <div class="content">
-            {{ subscribeForm() }}
-          </div>
-        </div>
+    <div class="column is-3 is-offset-3">
+      <div class="content">
+        {{ subscribeForm() }}
       </div>
     </div>
   </div>

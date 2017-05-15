@@ -8,7 +8,7 @@ htmlBuild = $(htmlFiles:$(htmlSrc)/%=$(htmlDir)/%)
 htmlTplDeps  = $(shell find src/assets -name '*.html')
 htmlTplDeps += $(dbFile)
 
-export htmlDir dbFile
+export htmlDir htmlSrc dbFile
 
 all: html
 

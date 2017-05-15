@@ -1,6 +1,5 @@
 const context = module.exports = {
   title: 'ZeroTee',
-  subtitle: 'Minimal Geek Tees',
   products: require('./products'),
   albums: require('./albums')
 }

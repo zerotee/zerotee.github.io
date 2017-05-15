@@ -24,8 +24,7 @@ $(cssDir)/%.css: $(cssDeps)
 	node-sass \
 	  --output-style expanded \
 	  --source-map true \
-	  --include-path ../node_modules/bulma \
-	  --include-path ../node_modules/bulmaswatch \
+	  --include-path ../node_modules \
 	  $(cssMain) $@
 	postcss --map --use autoprefixer --output $@ $@
 
