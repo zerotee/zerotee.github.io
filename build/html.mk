@@ -3,9 +3,10 @@ htmlSrc   = src
 htmlFiles = $(shell find $(htmlSrc) -name index.html)
 htmlBuild = $(htmlFiles:$(htmlSrc)/%=$(htmlDir)/%)
 
-# Template dependencies (layouts and includes)
+# Template dependencies (layouts, includes and context modules)
 # ALL templates will be re-built if any of these files are changed
 htmlTplDeps  = $(shell find src/assets -name '*.html')
+htmlTplDeps += $(shell find src -name '*.js')
 htmlTplDeps += $(dbFile)
 
 export htmlDir htmlSrc dbFile
@@ -33,10 +34,10 @@ $(htmlDir)/albums/%/index.html: src/albums/album.html $(htmlTplDeps)
 	@mkdir -p $(@D)
 	scripts/render.js $< $@
 
-$(htmlSrc)/%.js::
-	touch $@
-
 $(htmlDir)/about/index.html: $(htmlSrc)/about/about.md
+
+$(htmlSrc)/%.js:
+	@touch $@
 
 Albums: $(dbFile)
 	scripts/albums.js > $@
