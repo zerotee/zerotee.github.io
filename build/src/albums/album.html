@@ -1,0 +1,9 @@
+{% extends "../assets/layouts/full.html" %}
+
+{% from "../assets/includes/albums/section.html" import albumSection %}
+
+{% set items = products.byAlbum[pageName] %}
+
+{% block content %}
+  {{ albumSection(pageName, items, albums.headers[pageName]) }}
+{% endblock %}

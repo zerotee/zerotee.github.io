@@ -1,14 +1,23 @@
 {% from "../products.html" import productGrid %}
-{% from "./title.html" import albumTitle %}
 
-{% macro albumSection(id, items, titleContent=false) %}
+{% macro albumSection(id, items, header={}) %}
+  {% set hSize = header.size or 4 %}
+  {% set hOffset = (12 - hSize) / 2 %}
   <div class="section album" id="album-{{ id }}">
     <div class="container">
-      {% if titleContent %}
-        {{ albumTitle(titleContent) }}
-      {% else %}
-        {% include "./titles/" + id + ".html" ignore missing %}
-      {% endif %}
+      <div class="columns album-title">
+        <div class="column is-{{ hSize }} is-offset-{{ hOffset }}">
+          <div class="content has-text-centered">
+            {% if header.content %}
+              {{ header.content | safe }}
+            {% elif header.include %}
+              {% include "./titles/" + id + ".html" ignore missing %}
+            {% else %}
+              <h1>{{ albums.byId[id].title }}</h1>
+            {% endif %}
+          </div>
+        </div>
+      </div>
       {{ productGrid(items) }}
     </div>
   </div>

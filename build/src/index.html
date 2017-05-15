@@ -1,34 +1,16 @@
-{% extends "./assets/layouts/base.html" %}
-{% from "./assets/includes/nav.html" import navigation %}
+{% extends "./assets/layouts/full.html" %}
 {% from "./assets/includes/products.html" import productGrid %}
 {% from "./assets/includes/albums/section.html" import albumSection %}
 {% from "./assets/includes/subscribe.html" import subscribeForm %}
 
-{% block body %}
-  <div class="section" id="top">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-4 is-offset-4">
-          <figure class="image block">
-            <img src="/assets/img/logo.svg" />
-          </figure>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column is-6 is-offset-3">
-          {{ navigation(header='Minimal Geek Tees') }}
-        </div>
-      </div>
-    </div>
-  </div>
-
+{% block content %}
   {% for id in albums.sort %}
-    {{ albumSection(id, products.byAlbum[id], albums.titles[id]) }}
+    {{ albumSection(id, products.byAlbum[id], albums.headers[id]) }}
   {% endfor %}
 
-  {% for id, album in products.byAlbum %}
+  {% for id, items in products.byAlbum %}
     {% if not albums.sort.includes(id) %}
-      {{ albumSection(id, products.byAlbum[id], albums.titles[id]) }}
+      {{ albumSection(id, items, albums.headers[id]) }}
     {% endif %}
   {% endfor %}
 
@@ -46,20 +28,6 @@
             started!
           </p>
           {{ subscribeForm(size='medium') }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-6">
-          {% set year = date.getFullYear() %}
-          {{ navigation(header='Copyright &copy; ' + year + ' ZeroTee', showPolicy=true) }}
-        </div>
-        <div class="column is-2 is-offset-4 has-text-right">
-          &#129093; <a href="#top">Back to Top</a>
         </div>
       </div>
     </div>

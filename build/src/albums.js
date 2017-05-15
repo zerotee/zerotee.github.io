@@ -7,8 +7,18 @@ module.exports = {
   sort: [
     'guardians-of-the-galaxy'
   ],
-  titles: {
-    'dungeons-and-dragons': '<h1>Dungeons & Things</h1>',
-    'macross': '<h1>Macross a.k.a Robotech</h1>'
+  headers: {
+    'guardians-of-the-galaxy': {
+      size: 2,
+      include: true
+    },
+    'dungeons-and-dragons': {
+      title: 'Dungeons & Things',
+      content: '<h1>Dungeons &amp; Things</h1>'
+    },
+    'macross': {
+      title: 'Macross a.k.a Robotech',
+      content: '<h1>Macross a.k.a Robotech</h1>'
+    }
   }
 }

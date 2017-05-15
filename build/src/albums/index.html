@@ -1,0 +1,24 @@
+{% extends "../assets/layouts/full.html" %}
+
+{% macro albumLink(album) %}
+  {% set aTitle = albums.headers[album.id].title or album.title %}
+  <a href="/albums/{{ album.id }}/">{{ aTitle }}</a>
+{% endmacro %}
+
+{% block content %}
+  <section class="section">
+    <div class="container">
+      <div class="content is-large has-text-centered">
+        <h1>Albums</h1>
+        {% for id in albums.sort %}
+          <p>{{ albumLink(albums.byId[id]) }}</p>
+        {% endfor %}
+        {% for album in albums.all %}
+          {% if not albums.sort.includes(album.id) %}
+          <p>{{ albumLink(album) }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

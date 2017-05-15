@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="/assets/css/main.css" />
     {% endblock %}
   </head>
-  <body class="page-{{ currentPage }}">
+  <body class="page-{{ pageName }}" id="page-{{ pageId }}">
     {% block body %}{% endblock %}
     {% block foot %}
       <script>

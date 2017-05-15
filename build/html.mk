@@ -10,11 +10,14 @@ htmlTplDeps += $(dbFile)
 
 export htmlDir htmlSrc dbFile
 
-all: html
+all: html html-albums
 
 clean: html-clean
 
 html: $(htmlDir) $(htmlBuild)
+
+html-albums: Albums
+	@make --no-print-directory $$(cat $<)
 
 html-clean:
 	rm -f $(htmlBuild)
@@ -24,15 +27,18 @@ $(htmlDir):
 
 $(htmlDir)/%.html: $(htmlSrc)/%.html $(htmlSrc)/%.js $(htmlTplDeps)
 	@mkdir -p $(@D)
-	scripts/render.js $< > $@
+	scripts/render.js $< $@
 
-$(htmlDir)/albums/%.html: src/album.html $(htmlTplDeps)
+$(htmlDir)/albums/%/index.html: src/albums/album.html $(htmlTplDeps)
 	@mkdir -p $(@D)
-	scripts/render.js $< > $@
+	scripts/render.js $< $@
 
 $(htmlSrc)/%.js::
 	touch $@
 
 $(htmlDir)/about/index.html: $(htmlSrc)/about/about.md
+
+Albums: $(dbFile)
+	scripts/albums.js > $@
 
 .PHONY: html html-clean html-albums
