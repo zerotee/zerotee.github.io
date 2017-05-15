@@ -37,8 +37,6 @@
     "p-each-series": "^1.0.0",
     "p-throttle": "^1.1.0",
     "postcss-cli": "^4.0.0",
-    "pouchdb": "^6.2.0",
-    "pug-cli": "^1.0.0-alpha6",
     "slugify": "^1.1.0",
     "superstatic": "^4.1.0"
   }
