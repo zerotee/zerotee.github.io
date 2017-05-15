@@ -918,8 +918,28 @@
             started!
           </p>
           
-<div class="subscribe-form-ml">
-  <script type="text/javascript" src="//static.mailerlite.com/data/webforms/411526/j9e8h8.js?v8"></script>
+<div class="subscribe-form">
+  <form
+    action="https://tinyletter.com/zerotee"
+    method="post"
+    target="popupwindow"
+    onsubmit="window.open('https://tinyletter.com/zerotee', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <input class="input" type="text" name="email" id="tlemail"
+          placeholder="Email Address"/>
+      </p>
+      <p class="control">
+        <input class="button is-primary" type="submit" value="Subscribe" />
+      </p>
+    </div>
+    <p class="has-text-right">
+      <a class="button is-danger is-outlined is-small" href="https://tinyletter.com" target="_blank">
+        powered by TinyLetter
+      </a>
+    </p>
+    <input type="hidden" value="1" name="embed" />
+  </form>
 </div>
 
         </div>
