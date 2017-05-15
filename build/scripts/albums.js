@@ -7,12 +7,12 @@ function main () {
   const dbFile = process.env.dbFile || 'db.json'
   const dbPath = Path.join(process.cwd(), dbFile)
   const db = require(dbPath)
-
-  process.stdout.write(
-    db.albums
-      .map((album) => `${htmlDir}/albums/${album.id}/index.html`)
-      .join('\n')
+  const albums = db.albums.map(
+    (album) => `${htmlDir}/albums/${album.id}/index.html`
   )
+
+  albums.push(`${htmlDir}/albums/all/index.html`)
+  process.stdout.write(albums.join('\n'))
 }
 
 if (require.main === module) {

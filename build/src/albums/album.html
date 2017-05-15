@@ -2,8 +2,14 @@
 
 {% from "../assets/includes/albums/section.html" import albumSection %}
 
-{% set items = products.byAlbum[pageName] %}
+{% if pageName == "all" %}
+  {% set items = products.all %}
+  {% set header = { content: "<h1>All Tees</h1>" } %}
+{% else %}
+  {% set items = products.byAlbum[pageName] %}
+  {% set header = albums.headers[pageName] %}
+{% endif %}
 
 {% block content %}
-  {{ albumSection(pageName, items, albums.headers[pageName]) }}
+  {{ albumSection(pageName, items, header) }}
 {% endblock %}
