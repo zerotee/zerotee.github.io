@@ -9,7 +9,7 @@ const request = require('./stores/lib/request')
 const log = require('./stores/lib/log')('main')
 
 function main () {
-  const dbFile = process.env.dbFile || 'db.json'
+  const dbFile = process.env['db-src-file'] || 'db.json'
   const dbPath = Path.join(process.cwd(), dbFile)
   const db = { albums: [], products: [] }
 

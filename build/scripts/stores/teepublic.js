@@ -1,7 +1,7 @@
 const Url = require('url')
 const cheerio = require('cheerio')
 const slugify = require('slugify')
-const config = require('../../config.json')
+const config = require('../../config')
 const log = require('./lib/log')('TeePublic')
 
 function parseProducts ($, url) {

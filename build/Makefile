@@ -1,16 +1,10 @@
-PATH := ../node_modules/.bin:$(PATH)
-
-# Settings
-publicDir = ..
-assetsDir = $(publicDir)/assets
-jsNom     = $(publicDir)/node_modules
-
-# Utils
 space :=
 space +=
 comma := ,
 
-include *.mk
+include config.mk
+include make/*.mk
+include site.mk
 
 print-%:
 	@echo "$($*)"

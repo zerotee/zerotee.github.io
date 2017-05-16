@@ -1,7 +1,7 @@
 const Lo = require('lodash')
 const fetch = require('node-fetch')
 const pThrottle = require('p-throttle')
-const config = require('../../../config.json')
+const config = require('../../../config')
 const log = require('./log')('request')
 
 const BASE_OPTIONS = {

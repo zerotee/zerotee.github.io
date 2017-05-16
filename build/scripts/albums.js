@@ -3,8 +3,8 @@
 const Path = require('path')
 
 function main () {
-  const htmlDir = process.env.htmlDir || '..'
-  const dbFile = process.env.dbFile || 'db.json'
+  const htmlDir = process.env['html-dest-dir'] || '..'
+  const dbFile = process.env['db-src-file'] || 'db.json'
   const dbPath = Path.join(process.cwd(), dbFile)
   const db = require(dbPath)
   const albums = db.albums.map(

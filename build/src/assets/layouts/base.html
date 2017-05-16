@@ -9,6 +9,12 @@
       <link rel="icon" href="/assets/img/favicon.png" sizes="256x256 "/>
       <link rel="stylesheet" href="/assets/css/lib/font-awesome/css/font-awesome.min.css" />
       <link rel="stylesheet" href="/assets/css/main.css" />
+      {% for name, content in config.openGraph %}
+        <meta name="og:{{ name }}" content="{{ content }}" />
+      {% endfor %}
+      {% for name, content in config.twitterCard %}
+        <meta name="twitter:{{ name }}" content="{{ content }}" />
+      {% endfor %}
     {% endblock %}
   </head>
   <body class="page-{{ pageName }}" id="page-{{ pageId }}">

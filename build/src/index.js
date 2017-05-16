@@ -1,5 +1,7 @@
+const config = require('../config')
+
 const context = module.exports = {
-  title: 'ZeroTee',
+  title: config.openGraph.title,
   products: require('./products'),
   albums: require('./albums')
 }

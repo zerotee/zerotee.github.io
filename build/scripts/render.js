@@ -2,9 +2,11 @@
 
 const Fs = require('fs')
 const Path = require('path')
+const Lo = require('lodash')
 const nunjucks = require('nunjucks')
 const nunjucksMd = require('nunjucks-markdown')
 const md = require('markdown-it')()
+const config = require('../config')
 
 const prog = Path.basename(process.argv[1])
 const env = nunjucks.configure()
@@ -31,12 +33,13 @@ function main () {
 
   const context = {
     date: new Date(),
+    config,
     pageId,
     pageName
   }
 
   try {
-    Object.assign(context, require(ctxFile))
+    Lo.merge(context, require(ctxFile))
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       throw e
