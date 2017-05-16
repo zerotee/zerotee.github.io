@@ -1,6 +1,9 @@
 const baseURL = 'https://zerotee.space'
 
 module.exports = {
+  facebook: {
+    appId: '1651962031485452'
+  },
   openGraph: {
     title: 'ZeroTee | Minimal Geek Tees',
     image: baseURL + '/assets/img/meta/og-image-01.jpg',
