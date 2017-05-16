@@ -9,6 +9,8 @@
       <link rel="icon" href="/assets/img/favicon.png" sizes="256x256 "/>
       <link rel="stylesheet" href="/assets/css/lib/font-awesome/css/font-awesome.min.css" />
       <link rel="stylesheet" href="/assets/css/main.css" />
+      <link rel="canonical" href="{{ config.baseURL }}/{{ pageCanonicalPath }}" />
+      <meta name="og:url" content="{{ config.baseURL }}/{{ pageCanonicalPath }}" />
       {% for name, content in config.openGraph %}
         <meta name="og:{{ name }}" content="{{ content }}" />
       {% endfor %}

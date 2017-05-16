@@ -26,8 +26,8 @@ function main () {
 
   const path = Path.parse(file)
   const ctxFile = Path.resolve(process.cwd(), Path.join(path.dir, path.name))
-  const destRel = dest.replace(new RegExp(`^${htmlDir}/?`), '')
-  const destPath = Path.parse(destRel)
+  const pagePath = dest.replace(new RegExp(`^${htmlDir}/?`), '')
+  const destPath = Path.parse(pagePath)
   const pageId = Path.join(destPath.dir, destPath.name).replace(/\\|\//g, '-')
   const pageName = Path.basename(destPath.dir)
 
@@ -35,7 +35,9 @@ function main () {
     date: new Date(),
     config,
     pageId,
-    pageName
+    pageName,
+    pagePath,
+    pageCanonicalPath: pagePath.replace(/index\.html$/, '')
   }
 
   try {
@@ -52,6 +54,7 @@ function main () {
   console.error('[render] ctxFile:', ctxFile)
   console.error('[render] pageId:', pageId)
   console.error('[render] pageName:', pageName)
+  console.error('[render] pagePath:', pagePath)
 
   const html = nunjucks.render(file, context)
   Fs.writeFileSync(dest, html)
