@@ -8,7 +8,7 @@ module.exports = {
   },
   twitterCard: {
     card: 'summary',
-    image: baseURL + '/assets/img/meta/card-summary-01.png',
+    image: baseURL + '/assets/img/meta/card-summary-01.jpg',
     site: '@zerotee_'
   },
   baseURL,
