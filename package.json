@@ -25,6 +25,7 @@
     "bulma": "^0.4.1",
     "bulmaswatch": "^0.4.1",
     "cheerio": "^0.22.0",
+    "crawler": "^1.0.5",
     "font-awesome": "^4.7.0",
     "imagemin-cli": "^3.0.0",
     "imagemin-pngquant": "^5.0.0",

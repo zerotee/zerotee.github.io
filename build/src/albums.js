@@ -2,11 +2,14 @@ const Lo = require('lodash')
 const db = require('../db.json')
 
 module.exports = {
-  all: db.albums,
-  byId: Lo.keyBy(db.albums, 'id'),
+  all: db.collection,
+
+  byId: Lo.keyBy(db.collection, 'id'),
+
   sort: [
     'guardians-of-the-galaxy'
   ],
+
   headers: {
     'guardians-of-the-galaxy': {
       size: 2,

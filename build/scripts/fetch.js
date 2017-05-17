@@ -2,19 +2,29 @@
 
 const Fs = require('fs')
 const Path = require('path')
-const Url = require('url')
 const Lo = require('lodash')
-const pEach = require('p-each-series')
-const request = require('./stores/lib/request')
-const log = require('./stores/lib/log')('main')
+const Crawler = require('crawler')
+const config = require('../config')
+const log = require('./stores/lib/log')('store')
+
+const crawler = new Crawler({
+  maxConnections: 5,
+  rateLimit: 1000,
+  headers: {
+    'user-agent': config.userAgent
+  }
+})
 
 function main () {
-  const dbFile = process.env['db-src-file'] || 'db.json'
+  const dbFile = process.argv[2] || process.env['db-src-file'] || 'db.json'
   const dbPath = Path.join(process.cwd(), dbFile)
-  const db = { albums: [], products: [] }
+  const db = {}
 
   try {
-    Lo.assign(db, require(dbPath))
+    const flat = require(dbPath)
+    Object.assign(db, Lo.mapValues(flat, (items) => (
+      Lo.keyBy(items, 'id')
+    )))
     log('Opened existing db: %s', dbPath)
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
@@ -24,116 +34,98 @@ function main () {
     }
   }
 
-  pEach(
-    Fs.readdirSync(Path.join(__dirname, 'stores'))
-      .filter((name) => name.endsWith('.js'))
-      .map((name) => require('./stores/' + name)),
-    (store) => {
-      console.error(`[${store.name}] Fetching...`)
-      return fetch(store, db)
-    }
-  )
-  .then(() => {
-    db.albums = Lo.sortBy(db.albums, 'id')
-    db.products = Lo.sortBy(db.products, 'modified')
-    Fs.writeFileSync(dbPath, JSON.stringify(db, null, 2))
-  })
-  .catch((err) => {
-    console.error(err)
-    process.exit(1)
-  })
-}
-
-function fetch ({ name, parse, url }, db) {
-  const baseURL = url
-  const seen = new Set()
-
-  return fetchPage(url)
-
-  function fetchPage (url) {
-    url = Url.resolve(baseURL, url)
-
-    if (seen.has(url)) {
-      return
-    }
-
-    seen.add(url)
-
-    return request(url)
-      .then((res) => res.text())
-      .then((html) => {
-        const { items, links } = parse(html, url)
-        return storeItems(items).then(() => (
-          pEach(links, fetchPage)
-        ))
-      }).catch((err) => {
-        if (err.response) {
-          console.error(
-            '[%s] ERROR: %s %s (skipping page)',
-            name,
-            err.response.status,
-            err.response.statusText
-          )
-        } else {
-          throw err
-        }
-      })
-  }
-
-  function storeItems ({ album, products }) {
-    if (album) {
-      const albumUrl = album.url
-      const curAlbum = Lo.find(db.albums, { id: album.id })
-
-      album = Lo.omit(album, 'url')
-      album.urls = { [name]: albumUrl }
-
-      if (!curAlbum) {
-        db.albums.push(album)
+  Fs.readdirSync(Path.join(__dirname, 'stores'))
+    .filter((name) => name.endsWith('.js'))
+    .map((name) => require('./stores/' + name))
+    .forEach((store) => {
+      if (!store.disabled) {
+        log('%s: Fetching...', store.name)
+        return crawl(store, db)
       } else {
-        Lo.merge(curAlbum.urls, album.urls)
-      }
-    }
-
-    products.forEach((product) => {
-      if (!String(product.id).startsWith(name)) {
-        product.id = `${name}-${product.id}`
-      }
-
-      let curProduct = Lo.find(db.products, { id: product.id })
-      const isNew = !curProduct
-
-      if (isNew) {
-        db.products.push(product)
-        curProduct = product
-        curProduct.created = Date.now()
-      } else {
-        if (curProduct.title !== product.title ||
-            curProduct.image !== product.image ||
-            curProduct.price !== product.price ||
-            curProduct.url !== product.url) {
-          Lo.assign(curProduct, product)
-          curProduct.modified = Date.now()
-        }
-      }
-
-      if (album) {
-        const albumSet = new Set(curProduct.albums)
-
-        if (!albumSet.has(album.id)) {
-          albumSet.add(album.id)
-
-          if (!isNew) {
-            curProduct.modified = Date.now()
-          }
-        }
-
-        curProduct.albums = Array.from(albumSet)
+        log('%s: Disabled', store.name)
       }
     })
 
-    return Promise.resolve()
+  crawler.on('drain', () => {
+    const flat = Lo.mapValues(db, (items) => (
+      Lo.sortBy(Lo.values(items), 'created')
+    ))
+    Fs.writeFileSync(dbPath, JSON.stringify(flat, null, 2))
+  })
+
+  crawler.on('request', (req) => {
+    log('request:', req.uri)
+  })
+}
+
+function crawl ({ name, startRequests }, db) {
+  queue(startRequests)
+
+  function queue (reqs) {
+    crawler.queue(reqs.map(createRequest))
   }
+
+  function createRequest (req) {
+    return Object.assign({}, req, {
+      callback: createCallback(req)
+    })
+  }
+
+  function createCallback ({ uri, parse }) {
+    return function reqCallback (err, res, done) {
+      if (err) {
+        log('ERROR:', err)
+        return
+      }
+
+      const results = parse(res.$ || res.body, uri)
+      const [ reqs, items ] = Lo.partition(results, isRequest)
+
+      if (reqs.length) {
+        queue(reqs)
+      }
+
+      log('%s: %d items', name, items.length)
+
+      items
+        .filter(isItem)
+        .forEach(addItem)
+
+      done()
+    }
+  }
+
+  function addItem (item) {
+    const id = item.id
+    const kin = item.kind
+    const col = db[kin] || (db[kin] = {})
+    const doc = Lo.omit(item, 'kind')
+
+    if (col[id]) {
+      Lo.assignWith(col[id], doc, (val, src, key) => {
+        if (key === 'collections' && val) {
+          return Array.from(new Set(val.concat(src)))
+        }
+        if (key === 'urls') {
+          return Object.assign({}, val, src)
+        }
+      })
+    } else {
+      col[id] = doc
+    }
+
+    if (!col[id].created) {
+      col[id].created = Date.now()
+    }
+  }
+}
+
+function isItem (item) {
+  return item.kind && item.id
+}
+
+function isRequest (item) {
+  return item.uri && typeof item.parse === 'function'
 }
 
 if (require.main === module) {

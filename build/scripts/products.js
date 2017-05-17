@@ -14,12 +14,12 @@ function main () {
   const dbPath = Path.join(process.cwd(), dbFile)
   const db = require(dbPath)
 
-  const products = db.products
+  const products = db.product
     .filter((p) => (
       p.image && (
         albumId === 'all'
-          ? !p.albums
-          : (p.albums && p.albums.includes(albumId))
+          ? !p.collections
+          : (p.collections && p.collections.includes(albumId))
       )
     ))
     .slice(0, 8)

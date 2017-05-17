@@ -1,62 +1,78 @@
 const Url = require('url')
-const cheerio = require('cheerio')
-const slugify = require('slugify')
 const config = require('../../config')
-const log = require('./lib/log')('TeePublic')
+const slugify = require('slugify')
+const storeId = 'teepublic'
+const storeURL = config.stores[storeId]
 
-function parseProducts ($, url) {
-  const res = {}
+function parseLinks ($, url) {
+  const albums = $('.nav a[href*=album]').map((i, e) => ({
+    uri: Url.resolve(url, $(e).attr('href').trim()),
+    parse: parseAlbum
+  })).get()
+  const pages = $('.pagination>.page>a').map((i, e) => ({
+    uri: Url.resolve(url, $(e).attr('href').trim()),
+    parse: parseAlbum
+  })).get()
+  return albums.concat(pages)
+}
 
-  res.products = $('.design-container').map((idx, elem) => {
+function parseAlbum ($, url) {
+  const products = parseProducts($, url)
+  const $title = $('#content>.container h2.tiles')
+  const title = $title.length ? $title.text().trim() : undefined
+
+  if (title) {
+    const album = {
+      id: slugify(title).toLowerCase(),
+      kind: 'collection',
+      title,
+      urls: {
+        [storeId]: url
+      }
+    }
+
+    return products
+      .map((product) => Object.assign(product, {
+        collections: [album.id]
+      }))
+      .concat(album)
+  }
+
+  return products
+}
+
+function parseProducts ($, baseURL) {
+  return $('.design-container').map((idx, elem) => {
     const $elem = $(elem)
     const $meta = $elem.find('.meta-data')
     const $title = $meta.find('.meta-data-title>p>a')
 
     return {
-      id: $elem.data('id'),
+      id: storeId + '-' + $elem.data('id'),
+      kind: 'product',
       image: $elem.find('.design>.preview>img').attr('src'),
       title: $title.text(),
-      url: Url.resolve(config.teePublicURL, $title.attr('href')),
       artist: $meta.find('.designer-info').text().trim().replace(/^by\s+/, ''),
       price: parseInt(
         $meta.find('.price>p>span').text().trim().replace(/\$/, ''),
         10
-      )
+      ),
+      urls: {
+        product: Url.resolve(baseURL, $title.attr('href'))
+      }
     }
   }).get()
-
-  if (/\?album=/.test(url)) {
-    const $title = $('#content>.container h2.tiles')
-    const title = $title.length ? $title.text().trim() : undefined
-    res.album = {
-      url,
-      title,
-      id: slugify(title).toLowerCase()
-    }
-  }
-
-  log('album: %s', res.album ? res.album.title : '(none)')
-  log('products: %d', res.products.length)
-
-  return res
 }
 
-function parseLinks ($) {
-  return $('.nav a[href*=album], .pagination>.page>a').map((idx, elem) => (
-    $(elem).attr('href')
-  )).get()
-}
-
-function parse (html, url) {
-  const $ = cheerio.load(html)
-  return {
-    items: parseProducts($, url),
-    links: parseLinks($, url)
-  }
+function parseStorePage ($, url) {
+  return parseProducts($, url).concat(parseLinks($, url))
 }
 
 module.exports = {
-  name: 'TeePublic',
-  url: config.teePublicURL,
-  parse
+  disabled: false,
+  name: storeId,
+  startRequests: [
+    { uri: storeURL,
+      parse: parseStorePage }
+  ]
 }

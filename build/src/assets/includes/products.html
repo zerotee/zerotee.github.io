@@ -1,11 +1,11 @@
 {% macro productCard(product, width=3) %}
   <div class="column is-{{ width }} product">
-    <a class="image block" href="{{ product.url }}">
+    <a class="image block" href="{{ product.urls.product }}">
       <img src="{{ product.image }}" />
     </a>
     <div class="columns is-mobile product-info">
       <div class="column is-9">
-        <a href="{{ product.url }}">
+        <a href="{{ product.urls.product }}">
           {{ product.title }} by {{ product.artist }}
         </a>
       </div>
