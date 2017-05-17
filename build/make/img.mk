@@ -10,7 +10,9 @@ all: img
 
 clean: img-clean
 
-img: $(img-pub-files)
+img: img-pub
+
+img-pub: $(img-pub-files)
 
 img-clean:
 	rm -rf $(img-pub-dir)
@@ -27,4 +29,4 @@ $(img-pub-dir)/%.png: $(img-src-dir)/%.png
 	@mkdir -p $(@D)
 	imagemin --plugin=pngquant $< > $@
 
-.PHONY: img img-clean
+.PHONY: img img-pub img-clean

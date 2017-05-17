@@ -59,23 +59,25 @@ function fetch ({ name, parse, url }, db) {
 
     seen.add(url)
 
-    return request(url).then((html) => {
-      const { items, links } = parse(html, url)
-      return storeItems(items).then(() => (
-        pEach(links, fetchPage)
-      ))
-    }).catch((err) => {
-      if (err.response) {
-        console.error(
-          '[%s] ERROR: %s %s (skipping page)',
-          name,
-          err.response.status,
-          err.response.statusText
-        )
-      } else {
-        throw err
-      }
-    })
+    return request(url)
+      .then((res) => res.text())
+      .then((html) => {
+        const { items, links } = parse(html, url)
+        return storeItems(items).then(() => (
+          pEach(links, fetchPage)
+        ))
+      }).catch((err) => {
+        if (err.response) {
+          console.error(
+            '[%s] ERROR: %s %s (skipping page)',
+            name,
+            err.response.status,
+            err.response.statusText
+          )
+        } else {
+          throw err
+        }
+      })
   }
 
   function storeItems ({ album, products }) {

@@ -9,7 +9,7 @@ clean: js-clean
 js: $(js-pub-files)
 
 js-clean:
-	rm -f $(js-lib-dir)
+	rm -rfd $(js-pub-dir)
 
 $(js-lib-dir)/autotrack.js: $(node-modules-dir)/autotrack/autotrack.js
 	@mkdir -p $(@D)

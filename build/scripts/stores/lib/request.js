@@ -18,7 +18,7 @@ function request (url, options = {}) {
 
 function validate (res) {
   if (res.status >= 200 && res.status < 300) {
-    return res.text()
+    return res
   }
 
   const error = new Error(res.statusText)
