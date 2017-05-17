@@ -15,7 +15,7 @@
   {% endfor %}
 
   {% if products.noAlbum.length %}
-    {{ albumSection('none', products.noAlbum, '<h1>More Tees!</h1>') }}
+    {{ albumSection('none', products.noAlbum, {content:'<h1>More Tees!</h1>'}) }}
   {% endif %}
 
   <div class="section">
