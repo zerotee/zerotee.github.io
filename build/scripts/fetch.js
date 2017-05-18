@@ -48,7 +48,7 @@ function main () {
 
   crawler.on('drain', () => {
     const flat = Lo.mapValues(db, (items) => (
-      Lo.sortBy(Lo.values(items), 'created')
+      Lo.sortBy(Lo.values(items), (item) => -item.created)
     ))
     Fs.writeFileSync(dbPath, JSON.stringify(flat, null, 2))
   })
