@@ -21,4 +21,4 @@ $(db-src-file):
 $(db-pub-file): $(db-src-file)
 	node -p "JSON.stringify(require('./$<'))" > $@
 
-.PHONY: db db-clean
+.PHONY: db db-clean db-reset

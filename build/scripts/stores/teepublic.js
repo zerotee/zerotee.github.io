@@ -1,8 +1,8 @@
 const Url = require('url')
-const config = require('../../config')
+const config = require('../../config.json')
 const slugify = require('slugify')
 const storeId = 'teepublic'
-const storeURL = config.stores[storeId]
+const storeURL = config.stores[storeId].url
 
 function parseLinks ($, url) {
   const albums = $('.nav a[href*=album]').map((i, e) => ({

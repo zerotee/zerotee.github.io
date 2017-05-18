@@ -5,8 +5,8 @@ const cheerio = require('cheerio')
 const slugify = require('slugify')
 const config = require('../../config')
 const storeId = 'zazzle'
-const storeURL = config.stores[storeId]
-const assocId = config[storeId].id
+const storeURL = config.stores[storeId].url
+const assocId = config.stores[storeId].id
 
 const TRE = /^zazzle\.com\s+collection:\s+/i
 

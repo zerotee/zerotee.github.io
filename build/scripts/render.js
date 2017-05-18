@@ -8,7 +8,7 @@ const nunjucks = require('nunjucks')
 const nunjucksMd = require('nunjucks-markdown')
 const htmlMinify = require('html-minifier').minify
 const md = require('markdown-it')()
-const config = require('../config')
+const config = require('../config.json')
 
 const prog = Path.basename(process.argv[1])
 const env = nunjucks.configure()

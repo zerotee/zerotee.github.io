@@ -1,4 +1,4 @@
-const config = require('../config')
+const config = require('../config.json')
 
 const context = module.exports = {
   title: config.openGraph.title,

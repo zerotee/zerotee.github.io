@@ -1,5 +1,5 @@
-html-pub-dir   = $(pub-dir)
-html-src-dir   = $(src-dir)
+html-pub-dir = $(pub-dir)
+html-src-dir = $(src-dir)
 
 html-src-files = $(shell find $(html-src-dir) -name index.html)
 html-pub-files = $(html-src-files:$(html-src-dir)/%=$(html-pub-dir)/%)
@@ -13,9 +13,8 @@ html-sub-dirs := $(html-sub-dirs:$(html-src-dir)/%=$(html-pub-dir)/%)
 # ALL templates will be re-built if any of these files are changed
 html-deps  = $(shell find $(assets-src-dir) -name '*.html')
 html-deps += $(shell find $(src-dir) -name '*.js')
-html-deps += $(db-src-file) config.js
+html-deps += $(db-src-file) $(config-file)
 
-# Export required env vars for scripts
 export html-pub-dir html-src-dir db-src-file
 
 all: html

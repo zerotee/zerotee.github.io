@@ -4,7 +4,7 @@ const Fs = require('fs')
 const Path = require('path')
 const Lo = require('lodash')
 const Crawler = require('crawler')
-const config = require('../config')
+const config = require('../config.json')
 const log = require('./stores/lib/log')('store')
 
 const crawler = new Crawler({
