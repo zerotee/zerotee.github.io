@@ -17,6 +17,7 @@
   "scripts": {
     "test": "true",
     "build": "make -C build",
+    "rebuild": "make -C build -B db.json && make -C build",
     "start": "superstatic"
   },
   "devDependencies": {
