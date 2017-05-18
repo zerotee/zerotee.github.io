@@ -30,7 +30,7 @@ function parseRSSLink (url) {
 }
 
 function makeLink (url) {
-  const parsed = Url.parse(url)
+  const parsed = Url.parse(url, true)
   parsed.query = parsed.query || {}
   parsed.query.rf = assocId
   parsed.search = undefined
