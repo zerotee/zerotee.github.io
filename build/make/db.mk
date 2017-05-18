@@ -10,7 +10,10 @@ clean: db-clean
 db: $(db-pub-file)
 
 db-clean:
-	rm -f $(db-src-file) $(db-pub-file)
+	rm -f $(db-pub-file)
+
+db-reset:
+	rm -i $(db-src-file)
 
 $(db-src-file):
 	scripts/fetch.js
