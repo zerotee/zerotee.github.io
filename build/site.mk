@@ -38,7 +38,7 @@ clean-albums:
 
 Albums: $(db-src-file)
 	jq -r '.collection[].id' $< | tr -d '\015' > $@
-	echo all >> $@
+	echo all | cat $@ - | sort | uniq > $@
 
 $(html-pub-dir)/albums/%/index.html: \
   $(html-src-dir)/albums/album.html  \
