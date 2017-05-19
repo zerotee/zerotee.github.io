@@ -12,8 +12,7 @@ html-sub-dirs := $(html-sub-dirs:$(html-src-dir)/%=$(html-pub-dir)/%)
 # Template dependencies (layouts, includes and context modules)
 # ALL templates will be re-built if any of these files are changed
 html-deps  = $(shell find $(assets-src-dir) -name '*.html')
-html-deps += $(shell find $(src-dir) -name '*.js')
-html-deps += $(db-src-file) $(config-file)
+html-deps += $(config-file) $(db-src-file) $(html-src-dir)/context.js
 
 export html-pub-dir html-src-dir db-src-file
 

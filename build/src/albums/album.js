@@ -1,28 +1,24 @@
-/* global $context */
+module.exports = function (context) {
+  const id = context.page.name
+  const album = context.albums.byId[id]
+  const image = context.config.baseURL + '/' + (
+    context.asset(`assets/img/meta/og-image-album-${id}.jpg`)
+  )
+  const title = 'ZeroTee | Albums: ' + (
+    (album && album.title) ? album.title : context.page.name
+  )
 
-const Lo = require('lodash')
-const index = require('./index')
-const albumId = $context.pageName
-const album = index.albums.byId[albumId]
-const image = $context.config.baseURL + '/' + (
-  $context.asset(`assets/img/meta/og-image-album-${albumId}.jpg`)
-)
-const title = 'Zero Tee | Tees' + (
-  (album && album.title) ? `: ${album.title}` : ''
-)
-
-const context = Lo.merge(index, {
-  title,
-  config: {
-    openGraph: {
-      title,
-      image
-    },
-    twitterCard: {
-      card: 'summary_large_image',
-      image
+  return {
+    title,
+    config: {
+      openGraph: {
+        title,
+        image
+      },
+      twitterCard: {
+        card: 'summary_large_image',
+        image
+      }
     }
   }
-})
-
-module.exports = context
+}

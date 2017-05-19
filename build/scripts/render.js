@@ -54,28 +54,32 @@ function main () {
     return
   }
 
+  const srcDirPath = Path.resolve(process.cwd(), srcDir)
+  const rootCtx = require(Path.join(srcDirPath, 'context.js'))
   const path = Path.parse(file)
   const ctxFile = Path.resolve(process.cwd(), Path.join(path.dir, path.name))
-  const pagePath = dest.replace(new RegExp(`^${htmlDir}/?`), '')
-  const destPath = Path.parse(pagePath)
-  const pageId = Path.join(destPath.dir, destPath.name).replace(/\\|\//g, '-')
-  const pageName = Path.basename(destPath.dir)
+  const destPath = dest.replace(new RegExp(`^${htmlDir}/?`), '')
+  const destParsed = Path.parse(destPath)
+  const pagePath = Path.join(destParsed.dir, destParsed.name)
+  const pageId = pagePath.replace(/\\|\//g, '-')
+  const pageName = Path.basename(destParsed.dir)
 
-  const context = {
+  const context = Object.assign({}, rootCtx, {
     date: new Date(),
     asset,
     config,
-    pageId,
-    pageName,
-    pagePath,
-    pageCanonicalPath: pagePath.replace(/index\.html$/, '')
-  }
+    page: {
+      id: pageId,
+      path: destPath,
+      name: pageName,
+      canonical: pagePath.replace(/index\.html$/, '')
+    }
+  })
 
-  // HACK: add context to globals so template context modules can access them
-  global.$context = context
+  let locals
 
   try {
-    Lo.merge(context, require(ctxFile))
+    locals = require(ctxFile)
   } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       throw e
@@ -84,11 +88,17 @@ function main () {
     }
   }
 
-  console.error('[render] %s -> %s', file, dest)
-  console.error('[render] ctxFile:', ctxFile)
-  console.error('[render] pageId:', pageId)
-  console.error('[render] pageName:', pageName)
-  console.error('[render] pagePath:', pagePath)
+  if (Lo.isFunction(locals)) {
+    locals = locals(context)
+  }
+
+  Lo.merge(context, locals)
+
+  console.error('[render] %s: template: %s', pageId, file)
+  console.error('[render] %s: dest: %s', pageId, dest)
+  console.error('[render] %s: context: %s', pageId, ctxFile)
+  console.error('[render] %s: page.name: %s', pageId, pageName)
+  console.error('[render] %s: page.path: %s', pageId, pagePath)
 
   const html = nunjucks.render(file, context)
   Fs.writeFileSync(dest, minify(html))
