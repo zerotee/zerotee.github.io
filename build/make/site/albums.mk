@@ -1,10 +1,4 @@
-clean: clean-albums
-
-clean-albums:
-	rm -f Albums
-
-Albums: $(db-src-file)
-	jq -r '.collection[].id' $< | tr -d '\015' > $@
-	echo all | cat $@ - | sort | uniq > $@
-
-.PHONY: clean-albums
+define gen-albums
+	@jq -r '.collection[].id' $< | tr -d '\015' > .albums
+	@echo all | cat .albums - | sort | uniq > .albums
+endef

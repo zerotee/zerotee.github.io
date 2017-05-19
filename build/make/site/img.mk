@@ -3,9 +3,11 @@ banner-bg-file = $(img-src-dir)/meta/og-image-bg-01-jpg
 
 img: img-banners
 
-img-banners: Albums
-	@make --no-print-directory `awk '{ print $(banner-file) }' $<`
+img-banners: $(db-src-file)
+	$(gen-albums)
+	@make --no-print-directory `awk '{ print $(banner-file) }' .albums`
 	@make --no-print-directory img-pub
+	@rm .albums
 
 img-clean: img-clean-banners img-clean-products
 

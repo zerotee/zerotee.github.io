@@ -2,8 +2,10 @@ album-file = "$(html-pub-dir)/albums/"$$0"/index.html"
 
 html: html-albums
 
-html-albums: Albums
-	@make --no-print-directory `awk '{ print $(album-file) }' $<`
+html-albums: $(db-src-file)
+	$(gen-albums)
+	@make --no-print-directory `awk '{ print $(album-file) }' .albums`
+	@rm .albums
 
 html-clean: html-clean-albums
 
