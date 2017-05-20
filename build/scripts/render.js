@@ -6,7 +6,6 @@ const Path = require('path')
 const Lo = require('lodash')
 const nunjucks = require('nunjucks')
 const nunjucksMd = require('nunjucks-markdown')
-const htmlMinify = require('html-minifier').minify
 const md = require('markdown-it')()
 const config = require('../config.json')
 
@@ -15,14 +14,6 @@ const env = nunjucks.configure()
 const srcDir = process.env['src-dir'] || 'src'
 const htmlDir = process.env['html-out-dir'] || 'out'
 const pubDir = process.env['html-pub-dir'] || '..'
-
-function minify (html) {
-  return htmlMinify(html, {
-    collapseBooleanAttributes: true,
-    collapseWhitespace: true,
-    removeComments: true
-  })
-}
 
 function getAsset (file) {
   let data
@@ -108,7 +99,7 @@ function main () {
   console.error('[render] %s: page.path: %s', pageId, pagePath)
 
   const html = nunjucks.render(file, context)
-  Fs.writeFileSync(dest, minify(html))
+  Fs.writeFileSync(dest, html)
 }
 
 if (require.main === module) {
