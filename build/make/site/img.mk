@@ -12,7 +12,7 @@ export img-product-pub-dir
 
 img: img-banners
 
-img-banners: $(img-banner-files)
+img-banners: $(img-product-files) $(img-banner-files)
 
 rm-album::
 ifdef id
@@ -27,8 +27,7 @@ $(img-product-pub-dir)/%:
 	  | imagemin > $@
 
 $(img-banner-out-dir)/og-image-album-%.jpg: \
-  $(img-product-out-dir)/%.list \
-  $(img-product-files)
+  $(img-product-out-dir)/%.list
 	@mkdir -p $(@D)
 	gm montage \
 	  -background transparent \
