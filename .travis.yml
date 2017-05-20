@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "6"
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq graphicsmagick
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  target_branch: master
+  on:
+    branch: master

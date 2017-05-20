@@ -1,0 +1,35 @@
+{% extends "./assets/layouts/full.html" %}
+{% from "./assets/includes/products.html" import productGrid %}
+{% from "./assets/includes/albums/section.html" import albumSection %}
+{% from "./assets/includes/subscribe.html" import subscribeForm %}
+
+{% block content %}
+  {% for id in albums.sort %}
+    {{ albumSection(id, products.byAlbum[id], albums.headers[id]) }}
+  {% endfor %}
+
+  {% for id, items in products.byAlbum %}
+    {% if not albums.sort.includes(id) %}
+      {{ albumSection(id, items, albums.headers[id]) }}
+    {% endif %}
+  {% endfor %}
+
+  {% if products.noAlbum.length %}
+    {{ albumSection('none', products.noAlbum, {content:'<h1>More Tees!</h1>'}) }}
+  {% endif %}
+
+  <div class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-6 is-offset-3 content is-medium has-text-centered">
+          <h1>More coming soon!</h1>
+          <p>
+            More tees are being found and catalogued. We're just getting
+            started!
+          </p>
+          {{ subscribeForm(size='medium') }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% macro productCard(product, width=3) %}
+  <div class="column is-{{ width }} product">
+    <a class="image block" href="{{ product.urls.product }}">
+      <img src="{{ product.image }}" />
+    </a>
+    <div class="columns is-mobile product-info">
+      <div class="column is-9">
+        <a href="{{ product.urls.product }}">
+          {{ product.title }} by {{ product.artist }}
+        </a>
+      </div>
+      <div class="column has-text-right">
+        <span class="tag is-success">${{ product.price }}</span>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{% macro productGrid(products, width=3) %}
+  <div class="columns is-multiline products">
+    {% for product in products %}
+      {{ productCard(product, width=width) }}
+    {% endfor %}
+  </div>
+{% endmacro %}
