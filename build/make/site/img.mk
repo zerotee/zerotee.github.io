@@ -28,8 +28,7 @@ $(img-product-pub-dir)/%:
 
 $(img-banner-out-dir)/og-image-album-%.jpg: \
   $(img-product-out-dir)/%.list \
-  $(img-product-files) \
-  $(db-src-file)
+  $(img-product-files)
 	@mkdir -p $(@D)
 	gm montage \
 	  -background transparent \
@@ -39,7 +38,7 @@ $(img-banner-out-dir)/og-image-album-%.jpg: \
 	  `cat $<` \
 	  $@
 
-$(img-product-out-dir)/%.list: $(db-src-file)
+$(img-product-out-dir)/%.list:
 	@mkdir -p $(@D)
 	( if [ "$*" = "all" ]; \
 	  then jq -r '.product[]|select(.collections|not).id' \
