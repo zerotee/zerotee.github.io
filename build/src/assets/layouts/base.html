@@ -31,7 +31,9 @@
       <script>
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
       ga('create', 'UA-98886738-4', 'auto');
-      ga('require', 'outboundLinkTracker');
+      ga('require', 'outboundLinkTracker', {
+        events: ['click', 'auxclick', 'contextmenu']
+      });
       ga('require', 'outboundFormTracker');
       ga('send', 'pageview');
       </script>
