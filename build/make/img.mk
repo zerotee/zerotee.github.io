@@ -1,32 +1,30 @@
-img-pub-dir   = $(assets-pub-dir)/img
 img-src-dir   = $(assets-src-dir)/img
-img-types     = png jpg svg gif
+img-out-dir   = $(assets-out-dir)/img
+img-pub-dir   = $(assets-pub-dir)/img
+img-types     = png jpg svg
 img-glob      = *.{$(subst $(space),$(comma),$(img-types))}
 img-find      = $(shell find $(img-src-dir) -name '*.$(type)')
 img-src-files = $(foreach type, $(img-types), $(img-find))
 img-pub-files = $(img-src-files:$(img-src-dir)/%=$(img-pub-dir)/%)
 
-all: img
-
-clean: img-clean
-
 img: img-pub
 
 img-pub: $(img-pub-files)
 
-img-clean:
-	rm -rf $(img-pub-dir)
-
-$(img-pub-dir)/%.svg: $(img-src-dir)/%.svg
-	@mkdir -p $(@D)
-	imagemin $< > $@
-
-$(img-pub-dir)/%.jpg: $(img-src-dir)/%.jpg
-	@mkdir -p $(@D)
-	imagemin $< > $@
-
-$(img-pub-dir)/%.png: $(img-src-dir)/%.png
+$(img-pub-dir)/%.png: $(img-out-dir)/%.png
 	@mkdir -p $(@D)
 	imagemin --plugin=pngquant $< > $@
 
-.PHONY: img img-pub img-clean
+$(img-pub-dir)/%.jpg: $(img-out-dir)/%.jpg
+	@mkdir -p $(@D)
+	imagemin $< > $@
+
+$(img-pub-dir)/%.svg: $(img-out-dir)/%.svg
+	@mkdir -p $(@D)
+	imagemin $< > $@
+
+$(img-out-dir)/%: $(img-src-dir)/%
+	@mkdir -p $(@D)
+	cp $< $@
+
+.PHONY: img img-pub

@@ -15,9 +15,10 @@
     "url": "https://github.com/zerotee/zerotee.github.io/issues"
   },
   "scripts": {
-    "test": "true",
+    "prebuild": "./build/scripts/fetch.js build/db.json",
     "build": "make -C build",
-    "rebuild": "make -C build -B db.json && make -C build",
+    "pretest": "npm run build",
+    "test": "make -C build test",
     "start": "superstatic"
   },
   "devDependencies": {

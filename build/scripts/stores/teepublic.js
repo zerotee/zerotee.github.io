@@ -50,7 +50,7 @@ function parseProducts ($, baseURL) {
     return {
       id: storeId + '-' + $elem.data('id'),
       kind: 'product',
-      image: $elem.find('.design>.preview>img').attr('src'),
+      image: encodeURI($elem.find('.design>.preview>img').attr('src')),
       title: $title.text(),
       artist: $meta.find('.designer-info').text().trim().replace(/^by\s+/, ''),
       price: parseInt(

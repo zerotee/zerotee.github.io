@@ -5,7 +5,7 @@ const Path = require('path')
 const Lo = require('lodash')
 const Crawler = require('crawler')
 const config = require('../config.json')
-const log = require('./stores/lib/log')('store')
+const log = require('./stores/lib/log')('fetch')
 
 const crawler = new Crawler({
   maxConnections: 5,

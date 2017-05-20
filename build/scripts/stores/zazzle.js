@@ -51,7 +51,7 @@ function parseRSSPage (body, url) {
       id: storeId + '-' + parseLinkId($e.find('guid').text().trim()),
       title: $e.find('title').text().trim(),
       artist: $e.find('author').text().trim(),
-      image: $e.find('media\\:content').attr('url').trim(),
+      image: encodeURI($e.find('media\\:content').attr('url').trim()),
       price: parseInt(
         $e.find('price').text().trim().replace(/\$/, ''),
         10

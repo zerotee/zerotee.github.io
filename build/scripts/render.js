@@ -13,7 +13,8 @@ const config = require('../config.json')
 const prog = Path.basename(process.argv[1])
 const env = nunjucks.configure()
 const srcDir = process.env['src-dir'] || 'src'
-const htmlDir = process.env['html-pub-dir'] || '..'
+const htmlDir = process.env['html-out-dir'] || 'out'
+const pubDir = process.env['html-pub-dir'] || '..'
 
 function minify (html) {
   return htmlMinify(html, {
@@ -23,18 +24,24 @@ function minify (html) {
   })
 }
 
-function assetHash (path) {
+function getAsset (file) {
   let data
-  const file = Path.join(srcDir, path)
   try {
     data = Fs.readFileSync(file)
   } catch (e) {
     if (e.code === 'ENOENT') {
-      return
+      return false
     }
     throw e
   }
-  return Crypto.createHash('md5').update(data).digest('hex')
+  return data
+}
+
+function assetHash (path) {
+  const data = getAsset(Path.join(pubDir, path))
+  if (data) {
+    return Crypto.createHash('md5').update(data).digest('hex')
+  }
 }
 
 function asset (path) {

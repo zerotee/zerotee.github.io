@@ -1,23 +1,21 @@
-album-file = "$(html-pub-dir)/albums/"$$0"/index.html"
+html-album-src-dir = $(html-src-dir)/albums
+html-album-out-dir = $(html-out-dir)/albums
+html-album-pub-dir = $(html-pub-dir)/albums
+html-album-files   = $(album-ids:%=$(html-album-pub-dir)/%/index.html)
 
 html: html-albums
 
-html-albums: $(db-src-file)
-	$(gen-albums)
-	@make --no-print-directory `awk '{ print $(album-file) }' .albums`
-	@rm .albums
+html-albums: $(html-album-files)
 
 html-clean: html-clean-albums
 
 html-clean-albums:
-	rm -rfd $(html-pub-dir)/albums
+	rm -f  $(html-album-files)
 
-$(html-pub-dir)/albums/%/index.html: \
-  $(html-src-dir)/albums/album.html  \
+$(html-album-out-dir)/%/index.html: \
+  $(html-album-src-dir)/album.html  \
   $(html-deps)
 	@mkdir -p $(@D)
 	scripts/render.js $< $@
-
-$(html-pub-dir)/about/index.html: $(html-src-dir)/about/about.md
 
 .PHONY: html-albums html-clean-albums

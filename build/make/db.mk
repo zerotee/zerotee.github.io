@@ -3,22 +3,14 @@ db-pub-file = $(pub-dir)/$(db-src-file)
 
 export db-src-file
 
-all: db
-
 clean: db-clean
 
 db: $(db-pub-file)
 
 db-clean:
-	rm -f $(db-pub-file)
-
-db-reset:
-	rm -i $(db-src-file)
-
-$(db-src-file):
-	scripts/fetch.js
+	rm -f   $(db-pub-file)
 
 $(db-pub-file): $(db-src-file)
 	node -p "JSON.stringify(require('./$<'))" > $@
 
-.PHONY: db db-clean db-reset
+.PHONY: db db-clean
