@@ -11,9 +11,9 @@
         page.name
       }}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link rel="icon" href="/assets/img/favicon.png" sizes="256x256 "/>
-      <link rel="stylesheet" href="/assets/css/lib/font-awesome/css/font-awesome.min.css" />
-      <link rel="stylesheet" href="/assets/css/main.css" />
+      <link rel="icon" href="{{ asset('/assets/img/favicon.png') }}" sizes="256x256 "/>
+      <link rel="stylesheet" href="{{ asset('/assets/css/lib/font-awesome/css/font-awesome.min.css') }}" />
+      <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}" />
       <link rel="canonical" href="{{ config.baseURL }}/{{ pageCanonicalPath }}" />
       <meta name="fb:app_id" content="{{ config.facebook.appId }}" />
       <meta name="og:url" content="{{ config.baseURL }}/{{ pageCanonicalPath }}" />
@@ -36,7 +36,7 @@
       ga('send', 'pageview');
       </script>
       <script async src="https://www.google-analytics.com/analytics.js"></script>
-      <script async src="/assets/js/lib/autotrack.js"></script>
+      <script async src="{{ asset('/assets/js/lib/autotrack.js') }}"></script>
     {% endblock %}
   </body>
 </html>

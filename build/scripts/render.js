@@ -14,9 +14,17 @@ const env = nunjucks.configure()
 const srcDir = process.env['src-dir'] || 'src'
 const htmlDir = process.env['html-out-dir'] || 'out'
 const pubDir = process.env['html-pub-dir'] || '..'
+const hashMap = {}
+
+nunjucksMd.register(env, (text) => md.render(text))
 
 function getAsset (file) {
+  if (Lo.has(hashMap, file)) {
+    return hashMap[file]
+  }
+
   let data
+
   try {
     data = Fs.readFileSync(file)
   } catch (e) {
@@ -25,22 +33,20 @@ function getAsset (file) {
     }
     throw e
   }
+
+  hashMap[file] = data
   return data
 }
 
 function assetHash (path) {
   const data = getAsset(Path.join(pubDir, path))
-  if (data) {
-    return Crypto.createHash('md5').update(data).digest('hex')
-  }
+  return data && Crypto.createHash('md5').update(data).digest('hex')
 }
 
 function asset (path) {
   const hash = assetHash(path)
   return path + (hash ? `?${hash}` : '')
 }
-
-nunjucksMd.register(env, (text) => md.render(text))
 
 function main () {
   const file = process.argv[2]
