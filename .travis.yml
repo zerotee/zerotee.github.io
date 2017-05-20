@@ -10,4 +10,4 @@ deploy:
   github_token: $GITHUB_TOKEN
   target_branch: master
   on:
-    branch: master
+    branch: release
