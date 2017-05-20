@@ -4,6 +4,9 @@ node_js:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq graphicsmagick
+branches:
+  only:
+    - release
 deploy:
   provider: pages
   skip_cleanup: true
