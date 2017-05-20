@@ -23,10 +23,6 @@ module.exports = {
       'dungeons-and-dragons': {
         title: 'Dungeons & Things',
         content: '<h1>Dungeons &amp; Things</h1>'
-      },
-      'macross': {
-        title: 'Macross a.k.a Robotech',
-        content: '<h1>Macross a.k.a Robotech</h1>'
       }
     }
   },
