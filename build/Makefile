@@ -11,7 +11,7 @@ assets-out-dir   = $(out-dir)/assets
 assets-pub-dir   = $(pub-dir)/assets
 node-modules-dir = $(pub-dir)/node_modules
 
-PATH := $(node-modules-dir)/.bin:$(PATH)
+PATH := $(node-modules-dir)/.bin:$(node-modules-dir)/node-jq/bin:$(PATH)
 
 export src-dir pub-dir out-dir assets-src-dir assets-out-dir assets-pub-dir
 
