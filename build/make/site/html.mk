@@ -12,6 +12,12 @@ html-clean: html-clean-albums
 html-clean-albums:
 	rm -f  $(html-album-files)
 
+rm-album::
+ifdef id
+	rm -rf $(html-album-out-dir)/$(id)
+	rm -rf $(html-album-pub-dir)/$(id)
+endif
+
 $(html-album-out-dir)/%/index.html: \
   $(html-album-src-dir)/album.html  \
   $(html-deps)
