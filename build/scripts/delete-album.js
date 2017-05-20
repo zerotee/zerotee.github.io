@@ -21,15 +21,15 @@ function main () {
     p.collections && p.collections.length === 1 && p.collections[0] === albumId
   ))
 
-  db.product = db.product.map((p) => p.collections ? Object.assign(
-    p, {
-      collections: p.collections.filter((id) => id !== albumId)
+  db.product = db.product.map((p) => {
+    if (p.collections) {
+      p.collections = p.collections.filter((id) => id !== albumId)
+      if (p.collections.length === 0) {
+        delete p.collections
+      }
     }
-  ) : p)
-
-  db.product = db.product.filter((p) => (
-    !p.collections || p.collections.length > 0
-  ))
+    return p
+  })
 
   db.collection = db.collection.filter((album) => (
     album.id !== albumId

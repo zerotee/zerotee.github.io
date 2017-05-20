@@ -20,7 +20,8 @@ endif
 
 $(html-album-out-dir)/%/index.html: \
   $(html-album-src-dir)/album.html  \
-  $(html-deps)
+  $(html-deps) \
+  $(db-src-file)
 	@mkdir -p $(@D)
 	scripts/render.js $< $@
 

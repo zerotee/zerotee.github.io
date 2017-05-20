@@ -21,6 +21,9 @@ clean:
 	rm -rf $(assets-pub-dir)
 	rm -rf $(assets-out-dir)
 
+test:
+	true
+
 print-%:
 	@echo "$($*)"
 
