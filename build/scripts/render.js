@@ -53,7 +53,7 @@ function main () {
   const dest = process.argv[3]
 
   if (!dest) {
-    console.error(`Usage: ${prog} [FILE] [DEST]`)
+    console.error(`Usage: ${prog} <template-file> <output-file>`)
     process.exit(1)
     return
   }

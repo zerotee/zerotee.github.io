@@ -453,7 +453,10 @@
       "urls": {
         "product": "https://www.teepublic.com/t-shirt/393555-remember?store_id=123177"
       },
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "59231a29a588a8443c34dde7"
+      }
     },
     {
       "id": "teepublic-566716",
@@ -464,7 +467,10 @@
       "urls": {
         "product": "https://www.teepublic.com/t-shirt/566716-mordor-unknown-pressures?store_id=123177"
       },
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "59231a22f6e5a0097f2dc19e"
+      }
     },
     {
       "id": "teepublic-575924",
@@ -478,7 +484,10 @@
       "collections": [
         "guardians-of-the-galaxy"
       ],
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "59231a1bb9b62fb53a2dc19d"
+      }
     },
     {
       "id": "teepublic-594795",
@@ -492,7 +501,10 @@
       "collections": [
         "dungeons-and-dragons"
       ],
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "59231a1354c82f46162dc19b"
+      }
     },
     {
       "id": "teepublic-60635",
@@ -503,7 +515,10 @@
       "urls": {
         "product": "https://www.teepublic.com/t-shirt/60635-geeky-hallows?store_id=123177"
       },
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "592317a7b9b62f6c2751d13a"
+      }
     },
     {
       "id": "teepublic-682873",
@@ -517,7 +532,10 @@
       "collections": [
         "dungeons-and-dragons"
       ],
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "592317a4dcab3c882f2fe59f"
+      }
     },
     {
       "id": "teepublic-760360",
@@ -531,7 +549,10 @@
       "collections": [
         "guardians-of-the-galaxy"
       ],
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "5923179e54c82f000551d135"
+      }
     },
     {
       "id": "teepublic-83975",
@@ -542,7 +563,10 @@
       "urls": {
         "product": "https://www.teepublic.com/t-shirt/83975-star-laboratories?store_id=123177"
       },
-      "created": 1495041720884
+      "created": 1495041720884,
+      "shared": {
+        "591c9ebf24e00488369bfb6c": "5923179af6e5a0e6672fe5b1"
+      }
     }
   ],
   "collection": [

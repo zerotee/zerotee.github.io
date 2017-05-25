@@ -2,15 +2,16 @@
 
 const Fs = require('fs')
 const Path = require('path')
-const log = require('./stores/lib/log')('delete-album')
+const args = require('yargs').argv
+const log = require('./lib/log')(__filename)
 
 function main () {
   const pubDir = process.env['img-product-pub-dir']
-  const albumId = process.argv[2]
-  const dbFile = process.argv[3] || process.env['db-src-file'] || 'db.json'
+  const dbFile = args.db || process.env['db-src-file'] || 'db.json'
+  const albumId = args._[0]
 
   if (!albumId) {
-    console.error('Usage: delete-album.js [db-file] [album-id]')
+    console.error('Usage: delete-album.js [--db <db-file>] <album-id>')
     process.exit(1)
     return
   }

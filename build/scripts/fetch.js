@@ -4,8 +4,9 @@ const Fs = require('fs')
 const Path = require('path')
 const Lo = require('lodash')
 const Crawler = require('crawler')
+const args = require('yargs').argv
 const config = require('../config.json')
-const log = require('./stores/lib/log')('fetch')
+const log = require('./lib/log')(__filename)
 
 const crawler = new Crawler({
   maxConnections: 5,
@@ -16,7 +17,7 @@ const crawler = new Crawler({
 })
 
 function main () {
-  const dbFile = process.argv[2] || process.env['db-src-file'] || 'db.json'
+  const dbFile = args.db || process.env['db-src-file'] || 'db.json'
   const dbPath = Path.join(process.cwd(), dbFile)
   const db = {}
 
