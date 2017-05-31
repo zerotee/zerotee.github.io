@@ -1,0 +1,5 @@
+*.log
+npm-debug.log*
+secret.json
+node_modules/
+build/out/

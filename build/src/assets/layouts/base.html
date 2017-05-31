@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head lang="en">
+    {% block head %}
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge" />
+      <title>{{
+        title or
+        config.openGraph.title or
+        config.twitterCard.title or
+        page.name
+      }}</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="{{ asset('/assets/img/favicon.png') }}" sizes="256x256 "/>
+      <link rel="stylesheet" href="{{ asset('/assets/css/lib/font-awesome/css/font-awesome.min.css') }}" />
+      <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}" />
+      <link rel="canonical" href="{{ config.baseURL }}/{{ pageCanonicalPath }}" />
+      <meta name="fb:app_id" content="{{ config.facebook.appId }}" />
+      <meta name="og:url" content="{{ config.baseURL }}/{{ pageCanonicalPath }}" />
+      {% for name, content in config.openGraph %}
+        <meta name="og:{{ name }}" content="{{ content }}" />
+      {% endfor %}
+      {% for name, content in config.twitterCard %}
+        <meta name="twitter:{{ name }}" content="{{ content }}" />
+      {% endfor %}
+    {% endblock %}
+  </head>
+  <body class="page-{{ page.name }}" id="page-{{ page.id }}">
+    {% block body %}{% endblock %}
+    {% block foot %}
+      <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-98886738-4', 'auto');
+      ga('require', 'outboundLinkTracker', {
+        events: ['click', 'auxclick', 'contextmenu']
+      });
+      ga('require', 'outboundFormTracker');
+      ga('send', 'pageview');
+      </script>
+      <script async src="https://www.google-analytics.com/analytics.js"></script>
+      <script async src="{{ asset('/assets/js/lib/autotrack.js') }}"></script>
+    {% endblock %}
+  </body>
+</html>

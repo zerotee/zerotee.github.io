@@ -1,0 +1,15 @@
+{% from "./nav.html" import navigation %}
+
+<div class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-7">
+        {% set year = date.getFullYear() %}
+        {{ navigation(header='Copyright &copy; ' + year + ' ZeroTee', showPolicy=true) }}
+      </div>
+      <div class="column has-text-right">
+        &#129093; <a href="#top">Back to Top</a>
+      </div>
+    </div>
+  </div>
+</div>

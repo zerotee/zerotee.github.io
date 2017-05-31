@@ -1,0 +1,13 @@
+{% extends "../assets/layouts/page.html" %}
+
+{% set title = "ZeroTee | Privacy Policy" %}
+
+{% block content %}
+  <div class="columns">
+    <div class="column is-6">
+      <div class="content">
+        {% markdown "src/privacy/en.md" %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

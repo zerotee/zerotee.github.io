@@ -1,0 +1,18 @@
+{% from "./nav.html" import navigation %}
+
+<header class="section" id="top">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-4 is-offset-4">
+        <figure class="image block">
+          <img src="/assets/img/logo.svg" />
+        </figure>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-6 is-offset-3">
+        {{ navigation(header='Minimal Geek Tees') }}
+      </div>
+    </div>
+  </div>
+</header>

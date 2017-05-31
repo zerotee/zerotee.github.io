@@ -1,0 +1,53 @@
+{
+  "name": "zerotee-website",
+  "version": "1.0.0",
+  "description": "The ZeroTee website",
+  "author": "tirotekton <solus1@protonmail.com>",
+  "license": "CC-BY-SA-4.0",
+  "private": true,
+  "main": "index.html",
+  "homepage": "https://github.com/zerotee/zerotee.github.io#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zerotee/zerotee.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zerotee/zerotee.github.io/issues"
+  },
+  "scripts": {
+    "prebuild": "node build/scripts/fetch.js build/db.json",
+    "build": "make -C build",
+    "pretest": "npm run build",
+    "test": "make -C build test",
+    "start": "superstatic"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.0.1",
+    "autotrack": "^2.3.2",
+    "buffer-node": "^1.0.4",
+    "bulma": "^0.4.1",
+    "bulmaswatch": "^0.4.1",
+    "cheerio": "^0.22.0",
+    "crawler": "^1.0.5",
+    "font-awesome": "^4.7.0",
+    "html-minifier": "^3.5.0",
+    "imagemin-cli": "^3.0.0",
+    "imagemin-pngquant": "^5.0.0",
+    "lodash": "^4.17.4",
+    "markdown-it": "^8.3.1",
+    "mkdirp": "^0.5.1",
+    "multi-brand-colors": "^1.1.3",
+    "node-fetch": "^1.6.3",
+    "node-jq": "^0.5.4",
+    "node-sass": "^4.5.2",
+    "nunjucks": "^3.0.0",
+    "nunjucks-markdown": "^2.0.1",
+    "p-each-series": "^1.0.0",
+    "p-throttle": "^1.1.0",
+    "postcss-cli": "^4.0.0",
+    "slugify": "^1.1.0",
+    "superstatic": "^4.1.0",
+    "tweet-truncator": "^1.0.4",
+    "yargs": "^8.0.1"
+  }
+}
